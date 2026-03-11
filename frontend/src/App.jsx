@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import NavbarV2 from './components/NavbarV2';
 import Home from './pages/Home';
 import AlgorithmList from './pages/AlgorithmList';
-import AlgorithmVisualizer from './pages/AlgorithmVisualizerV2';
+import AlgorithmVisualizer from './pages/AlgorithmVisualizerV3';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen">
-        <Navbar />
+        <NavbarV2 />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/algorithms" element={<AlgorithmList />} />
