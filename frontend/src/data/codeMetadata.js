@@ -228,21 +228,22 @@ export const codeMetadata = {
   'bfs': {
     lineMapping: {
       init: 2,
-      addStart: 5,
-      whileLoop: 7,
-      dequeue: 8,
-      visit: 9,
-      checkNeighbors: 11,
-      addNeighbor: 13
+      addStart: 6,
+      whileLoop: 8,
+      dequeue: 9,
+      visit: 10,
+      checkNeighbors: 12,
+      addNeighbor: 14
     },
     whyExplanations: {
-      2: "BFS uses a queue (FIFO) to explore nodes level by level, like ripples spreading in water.",
-      5: "We start by adding the starting node to the queue and marking it as visited.",
-      7: "We continue processing nodes until the queue is empty - meaning we've explored everything reachable.",
-      8: "Dequeue the front node - this is the next node we'll process (FIFO order ensures level-by-level).",
-      9: "Mark the node as visited and process it (add to result, perform operations, etc.).",
-      11: "Check all neighbors of the current node to see which ones we haven't visited yet.",
-      13: "Add unvisited neighbors to the queue. They'll be processed after we finish the current level."
+      1: "BFS uses a queue (FIFO) to explore nodes level by level, like ripples spreading in water.",
+      2: "We initialize a visited set to track which nodes we've seen, and a queue to manage exploration order.",
+      6: "We start by adding the starting node to visited set. This prevents revisiting it later.",
+      8: "We continue processing nodes until the queue is empty - meaning we've explored everything reachable.",
+      9: "Dequeue the front node - this is the next node we'll process (FIFO order ensures level-by-level).",
+      10: "Add the node to result. We process nodes in the order they're discovered (breadth-first).",
+      12: "Check all neighbors of the current node to see which ones we haven't visited yet.",
+      14: "Add unvisited neighbors to both visited set and queue. They'll be processed after we finish the current level."
     },
     problem: {
       statement: "Find the shortest path from a start node to all other nodes in an unweighted graph.",
@@ -253,24 +254,22 @@ export const codeMetadata = {
   },
   'dfs': {
     lineMapping: {
-      init: 2,
-      addStart: 5,
-      whileLoop: 7,
-      pop: 8,
-      checkVisited: 10,
-      visit: 11,
-      checkNeighbors: 13,
-      addNeighbor: 15
+      init: 1,
+      addStart: 2,
+      whileLoop: 5,
+      pop: 6,
+      checkVisited: 7,
+      visit: 8,
+      checkNeighbors: 10,
+      addNeighbor: 11
     },
     whyExplanations: {
-      2: "DFS uses a stack (LIFO) to explore as deep as possible before backtracking, like exploring a maze.",
-      5: "We start by adding the starting node to the stack.",
-      7: "We continue until the stack is empty - meaning we've explored all reachable nodes.",
-      8: "Pop from the stack - this is the next node to process (LIFO order means we go deep first).",
-      10: "Skip if already visited - this prevents infinite loops in graphs with cycles.",
-      11: "Mark the node as visited and process it. We've now explored this node.",
-      13: "Check all neighbors to find unvisited ones we can explore deeper.",
-      15: "Add unvisited neighbors to the stack. The most recently added will be processed next (going deeper)."
+      1: "DFS explores as deep as possible before backtracking. We use recursion here for simplicity.",
+      2: "Mark the current node as visited to prevent revisiting it in cycles.",
+      5: "Iterate through all neighbors of the current node to explore deeper paths.",
+      6: "For each neighbor, check if we've already visited it to avoid infinite loops.",
+      7: "Recursively call DFS on unvisited neighbors, going as deep as possible before backtracking.",
+      8: "Add the neighbor's results to our result array, building the complete traversal order."
     },
     problem: {
       statement: "Explore all nodes in a graph by going as deep as possible before backtracking.",
@@ -283,26 +282,54 @@ export const codeMetadata = {
     lineMapping: {
       init: 2,
       initDistances: 5,
-      whileLoop: 8,
+      setStart: 7,
+      whileLoop: 9,
       findMin: 11,
-      visit: 17,
-      checkNeighbors: 20,
-      relax: 23
+      visit: 15,
+      checkNeighbors: 18,
+      relax: 20,
+      updateDistance: 21
     },
     whyExplanations: {
       2: "Dijkstra's algorithm finds the shortest path from a source to all other nodes in a weighted graph.",
-      5: "Initialize all distances to infinity except the source (distance 0). We don't know the paths yet!",
-      8: "Continue until we've visited all reachable nodes and found their shortest paths.",
+      5: "Initialize all distances to infinity except the source. We don't know the paths yet!",
+      7: "Set the source node distance to 0 since we start there.",
+      9: "Continue until we've visited all reachable nodes and found their shortest paths.",
       11: "Select the unvisited node with the smallest known distance. This greedy choice guarantees optimality!",
-      17: "Mark the node as visited. We've now found the shortest path to this node - it won't change!",
-      20: "Check all neighbors of the current node to see if we can improve their distances.",
-      23: "Relaxation: if going through the current node gives a shorter path to a neighbor, update the neighbor's distance."
+      15: "Mark the node as visited. We've now found the shortest path to this node - it won't change!",
+      18: "Check all neighbors of the current node to see if we can improve their distances.",
+      20: "Relaxation: if going through the current node gives a shorter path to a neighbor, update it.",
+      21: "Update the neighbor's distance and add it to the priority queue for future processing."
     },
     problem: {
       statement: "Find the shortest path from a source node to all other nodes in a weighted graph.",
       input: "weighted graph, source = 0",
       output: "Shortest distances: {0:0, 1:4, 2:1, 3:2, 4:5}",
       connection: "Watch how Dijkstra greedily picks the closest unvisited node and updates distances to its neighbors, building shortest paths step by step."
+    }
+  },
+  'heap-sort': {
+    lineMapping: {
+      init: 2,
+      buildHeap: 3,
+      heapify: 12,
+      extract: 6,
+      swap: 7,
+      complete: 10
+    },
+    whyExplanations: {
+      2: "Heap sort first builds a max heap from the array, then repeatedly extracts the maximum element.",
+      3: "Build the max heap by calling heapify on all non-leaf nodes, starting from the last parent node.",
+      6: "Extract phase: repeatedly swap the root (maximum) with the last element and reduce heap size.",
+      7: "Swap the maximum element (at root) with the last element, placing it in its final sorted position.",
+      12: "Heapify maintains the max heap property by comparing parent with children and swapping if needed.",
+      10: "Heap sort complete! Array is now sorted with O(n log n) time and O(1) space."
+    },
+    problem: {
+      statement: "Sort an array using heap sort by building a max heap and extracting elements.",
+      input: "arr = [12, 11, 13, 5, 6, 7]",
+      output: "[5, 6, 7, 11, 12, 13]",
+      connection: "Watch how the max heap is built, then elements are extracted one by one to create the sorted array."
     }
   }
 };

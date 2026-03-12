@@ -46,14 +46,26 @@ export function addCodeLineToSteps(algorithmId, steps) {
       codeLine = lineMapping.dequeue;
     } else if (explanation.includes('pop')) {
       codeLine = lineMapping.pop;
+    } else if (explanation.includes('add') && explanation.includes('visited')) {
+      codeLine = lineMapping.addStart;
     } else if (explanation.includes('visit') || explanation.includes('mark')) {
       codeLine = lineMapping.visit;
+    } else if (explanation.includes('neighbor') && explanation.includes('add')) {
+      codeLine = lineMapping.addNeighbor;
     } else if (explanation.includes('neighbor')) {
-      codeLine = lineMapping.checkNeighbors || lineMapping.addNeighbor;
-    } else if (explanation.includes('slide') || explanation.includes('window')) {
-      codeLine = lineMapping.slideWindow || lineMapping.slideLoop;
+      codeLine = lineMapping.checkNeighbors;
+    } else if (explanation.includes('select') || explanation.includes('minimum distance')) {
+      codeLine = lineMapping.findMin;
+    } else if (explanation.includes('distance') && explanation.includes('update')) {
+      codeLine = lineMapping.updateDistance || lineMapping.relax;
     } else if (explanation.includes('distance')) {
       codeLine = lineMapping.relax || lineMapping.initDistances;
+    } else if (explanation.includes('heapify')) {
+      codeLine = lineMapping.heapify;
+    } else if (explanation.includes('build') && explanation.includes('heap')) {
+      codeLine = lineMapping.buildHeap;
+    } else if (explanation.includes('extract')) {
+      codeLine = lineMapping.extract;
     } else if (explanation.includes('complete')) {
       codeLine = lineMapping.complete || lineMapping.returnNotFound;
     }

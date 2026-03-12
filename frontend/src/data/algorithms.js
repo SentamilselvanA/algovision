@@ -750,5 +750,74 @@ def dijkstra(graph, start):
     return distances;
 }`
     }
+  },
+  {
+    id: 'heap-sort',
+    name: 'Heap Sort',
+    category: 'Sorting',
+    description: 'Heap sort builds a max heap, then repeatedly extracts the maximum to build sorted array.',
+    timeComplexity: 'O(n log n)',
+    spaceComplexity: 'O(1)',
+    whenToUse: 'Use when you need guaranteed O(n log n) with O(1) space. Good for memory-constrained systems.',
+    code: {
+      javascript: `function heapSort(arr) {
+  const n = arr.length;
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(arr, n, i);
+  }
+  for (let i = n - 1; i > 0; i--) {
+    [arr[0], arr[i]] = [arr[i], arr[0]];
+    heapify(arr, i, 0);
+  }
+  return arr;
+}
+function heapify(arr, n, i) {
+  let largest = i;
+  const left = 2 * i + 1;
+  const right = 2 * i + 2;
+  if (left < n && arr[left] > arr[largest]) largest = left;
+  if (right < n && arr[right] > arr[largest]) largest = right;
+  if (largest !== i) {
+    [arr[i], arr[largest]] = [arr[largest], arr[i]];
+    heapify(arr, n, largest);
+  }
+}`,
+      python: `def heap_sort(arr):
+    n = len(arr)
+    for i in range(n // 2 - 1, -1, -1):
+        heapify(arr, n, i)
+    for i in range(n - 1, 0, -1):
+        arr[0], arr[i] = arr[i], arr[0]
+        heapify(arr, i, 0)
+    return arr
+def heapify(arr, n, i):
+    largest = i
+    left = 2 * i + 1
+    right = 2 * i + 2
+    if left < n and arr[left] > arr[largest]: largest = left
+    if right < n and arr[right] > arr[largest]: largest = right
+    if largest != i:
+        arr[i], arr[largest] = arr[largest], arr[i]
+        heapify(arr, n, largest)`,
+      cpp: `void heapify(vector<int>& arr, int n, int i) {
+    int largest = i, left = 2*i+1, right = 2*i+2;
+    if (left < n && arr[left] > arr[largest]) largest = left;
+    if (right < n && arr[right] > arr[largest]) largest = right;
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
+    }
+}
+void heapSort(vector<int>& arr) {
+    int n = arr.size();
+    for (int i = n/2-1; i >= 0; i--) heapify(arr, n, i);
+    for (int i = n-1; i > 0; i--) {
+        swap(arr[0], arr[i]);
+        heapify(arr, i, 0);
+    }
+}`
+    }
   }
 ];
+
+// Note: Removed closing bracket and added new algorithms before it

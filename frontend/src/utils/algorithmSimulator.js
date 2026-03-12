@@ -651,3 +651,76 @@ export function generateDijkstraSteps(graph, start) {
 
   return steps;
 }
+
+
+export function generateHeapSortSteps(arr) {
+  const steps = [];
+  const array = [...arr];
+  const n = array.length;
+
+  steps.push({
+    array: [...array],
+    variables: { i: null, j: null, comparing: false, swapped: false, sorted: [] },
+    explanation: 'Starting Heap Sort. First build max heap, then extract elements.'
+  });
+
+  function heapify(n, i) {
+    let largest = i;
+    const left = 2 * i + 1;
+    const right = 2 * i + 2;
+
+    steps.push({
+      array: [...array],
+      variables: { i, j: left, comparing: true, swapped: false, sorted: [] },
+      explanation: `Heapify at index ${i}. Compare with left child ${left}`
+    });
+
+    if (left < n && array[left] > array[largest]) {
+      largest = left;
+    }
+
+    if (right < n && array[right] > array[largest]) {
+      steps.push({
+        array: [...array],
+        variables: { i, j: right, comparing: true, swapped: false, sorted: [] },
+        explanation: `Compare with right child ${right}`
+      });
+      largest = right;
+    }
+
+    if (largest !== i) {
+      [array[i], array[largest]] = [array[largest], array[i]];
+      steps.push({
+        array: [...array],
+        variables: { i, j: largest, comparing: false, swapped: true, sorted: [] },
+        explanation: `Swap arr[${i}] with arr[${largest}]`
+      });
+      heapify(n, largest);
+    }
+  }
+
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+    heapify(n, i);
+  }
+
+  const sorted = [];
+  for (let i = n - 1; i > 0; i--) {
+    [array[0], array[i]] = [array[i], array[0]];
+    sorted.push(i);
+    steps.push({
+      array: [...array],
+      variables: { i: 0, j: i, comparing: false, swapped: true, sorted: [...sorted] },
+      explanation: `Extract max: swap root with last element at index ${i}`
+    });
+    heapify(i, 0);
+  }
+
+  sorted.push(0);
+  steps.push({
+    array: [...array],
+    variables: { i: null, j: null, comparing: false, swapped: false, sorted: [...sorted] },
+    explanation: 'Heap Sort complete! Array is fully sorted.'
+  });
+
+  return steps;
+}

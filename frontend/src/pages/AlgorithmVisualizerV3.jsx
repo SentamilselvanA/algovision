@@ -24,6 +24,7 @@ import SlidingWindowViz from '../visualizations/SlidingWindowViz';
 import BFSViz from '../visualizations/BFSViz';
 import DFSViz from '../visualizations/DFSViz';
 import DijkstraViz from '../visualizations/DijkstraViz';
+import HeapSortViz from '../visualizations/HeapSortViz';
 
 // Import step generators
 import {
@@ -38,7 +39,8 @@ import {
   generateSlidingWindowSteps,
   generateBFSSteps,
   generateDFSSteps,
-  generateDijkstraSteps
+  generateDijkstraSteps,
+  generateHeapSortSteps
 } from '../utils/algorithmSimulator';
 
 const visualizationComponents = {
@@ -53,7 +55,8 @@ const visualizationComponents = {
   'sliding-window': SlidingWindowViz,
   'bfs': BFSViz,
   'dfs': DFSViz,
-  'dijkstra': DijkstraViz
+  'dijkstra': DijkstraViz,
+  'heap-sort': HeapSortViz
 };
 
 const defaultData = {
@@ -68,7 +71,8 @@ const defaultData = {
   'sliding-window': { array: [2, 1, 5, 1, 3, 2], k: 3 },
   'bfs': { graph: { 0: [1, 2], 1: [0, 3, 4], 2: [0, 5, 6], 3: [1], 4: [1], 5: [2], 6: [2] }, start: 0 },
   'dfs': { graph: { 0: [1, 2], 1: [0, 3, 4], 2: [0, 5, 6], 3: [1], 4: [1], 5: [2], 6: [2] }, start: 0 },
-  'dijkstra': { graph: { 0: [[1, 4], [2, 1]], 1: [[0, 4], [3, 1]], 2: [[0, 1], [3, 5]], 3: [[1, 1], [2, 5], [4, 3]], 4: [[3, 3]] }, start: 0 }
+  'dijkstra': { graph: { 0: [[1, 4], [2, 1]], 1: [[0, 4], [3, 1]], 2: [[0, 1], [3, 5]], 3: [[1, 1], [2, 5], [4, 3]], 4: [[3, 3]] }, start: 0 },
+  'heap-sort': { array: [12, 11, 13, 5, 6, 7] }
 };
 
 export default function AlgorithmVisualizerV3() {
@@ -126,6 +130,9 @@ export default function AlgorithmVisualizerV3() {
         break;
       case 'dijkstra':
         generatedSteps = generateDijkstraSteps(data.graph, data.start);
+        break;
+      case 'heap-sort':
+        generatedSteps = generateHeapSortSteps(data.array);
         break;
     }
 
