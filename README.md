@@ -2,7 +2,7 @@
 
 AlgoVision is a powerful, interactive algorithm visualization platform designed to help developers and students understand complex data structures and algorithms through intuitive, real-time visualizations.
 
-![AlgoVision Preview](https://via.placeholder.com/800x400?text=AlgoVision+Visualizer+Demo)
+
 
 ## ✨ Key Features
 
